@@ -1,4 +1,4 @@
-#include "../includes/philosophers.h"
+#include "../../includes/philosophers.h"
 
 void	free_philo_info(t_thread *thread)
 {

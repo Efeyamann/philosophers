@@ -1,4 +1,4 @@
-#include "../includes/philosophers.h"
+#include "../../includes/philosophers.h"
 
 void fill_structs(t_thread *philo_info, int ac, char *av[])
 {
