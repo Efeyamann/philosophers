@@ -7,4 +7,5 @@ int check(int ac, char *av[])
 		printf("Error: invalid arguments\n");
 		return (1);
 	}
+	return (0);
 }
