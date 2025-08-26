@@ -7,7 +7,6 @@ int main(int ac, char *av[])
 
 	if (ac < 5 || ac > 6)
 		return (0);
-	check(ac, av);
 	if (check(ac, av))
 		return (1);
 	philo_info = (t_thread *)malloc(sizeof(t_thread));
@@ -20,6 +19,8 @@ int main(int ac, char *av[])
 		free_philo_info(philo_info);
 		return (1);
 	}
-	free_philo_table(philo_table);
+	philo_info->return_val = fill_table(philo_table, philo_info);
+	free_philo_table(*philo_table);
+	free(philo_table);
 	free_philo_info(philo_info);
 }

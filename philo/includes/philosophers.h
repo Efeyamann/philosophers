@@ -1,7 +1,6 @@
 #ifndef PHILOSPHERS_H
 # define PHILOSOPHERS_H
 
-# include "utils.h"
 # include <stdio.h>
 # include <pthread.h>
 # include <unistd.h>
@@ -35,5 +34,14 @@ typedef struct s_philo_table
 	pthread_mutex_t			fork;
 	struct s_philo_table	*next;
 }	t_philo_table;
+
+int				check(int ac, char *av[]);
+int				check_args(int ac, char *av[]);
+int				ft_atoi(const char *str);
+void			fill_struct(t_thread *philo_info, int ac, char *av[]);
+int				fill_table(t_philo_table **table, t_thread *philo_info);
+void			free_philo_table(t_philo_table *table);
+void			free_philo_info(t_thread *thread);
+t_philo_table	*new_node(void);
 
 #endif

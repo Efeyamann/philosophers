@@ -10,13 +10,23 @@ void	free_philo_info(t_thread *thread)
 
 void	free_philo_table(t_philo_table *table)
 {
-	t_philo_table *tmp;
+	t_philo_table	*current;
+	t_philo_table	*start;
+	t_philo_table	*tmp;
 
-	while (table)
+	if (!table)
+		return;
+	current = table;
+	start = table;
+	while (current->next && current->next != start)
+		current = current->next;
+	current->next = NULL;
+	current = table;
+	while (current)
 	{
-		tmp = table->next;
-		pthread_mutex_destroy(&table->fork);
-		free(table);
-		table = tmp;
+		tmp = current->next;
+		pthread_mutex_destroy(&current->fork);
+		free(current);
+		current = tmp;
 	}
 }

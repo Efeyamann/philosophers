@@ -1,7 +1,5 @@
 #include "../../includes/philosophers.h"
 
-#include <limits.h>
-
 int	ft_atoi(const char *str)
 {
 	long	result;
