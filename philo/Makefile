@@ -11,7 +11,9 @@ SRCS = $(SRCDIR)/main.c \
        $(SRCDIR)/fill/fill_struct_utils.c \
        $(SRCDIR)/fill/fill_table.c \
        $(SRCDIR)/fill/fill_table_utils.c \
-       $(SRCDIR)/free/free.c
+       $(SRCDIR)/free/free.c \
+       $(SRCDIR)/routine/routine.c \
+       $(SRCDIR)/routine/routine_time_utils.c
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 

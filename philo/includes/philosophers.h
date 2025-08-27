@@ -1,4 +1,4 @@
-#ifndef PHILOSPHERS_H
+#ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
 # include <stdio.h>
@@ -35,6 +35,12 @@ typedef struct s_philo_table
 	struct s_philo_table	*next;
 }	t_philo_table;
 
+typedef struct s_philo_data
+{
+	t_philo_table	*philo;
+	t_thread		*philo_info;
+}	t_philo_data;
+
 int				check(int ac, char *av[]);
 int				check_args(int ac, char *av[]);
 int				ft_atoi(const char *str);
@@ -43,5 +49,8 @@ int				fill_table(t_philo_table **table, t_thread *philo_info);
 void			free_philo_table(t_philo_table *table);
 void			free_philo_info(t_thread *thread);
 t_philo_table	*new_node(void);
-
+void			shut_program(t_thread *info, t_philo_table **table);
+void			*routine(void *arg);
+void			ft_usleep(long ms);
+long			timestamp_ms(void);
 #endif

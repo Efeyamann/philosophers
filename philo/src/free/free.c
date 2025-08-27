@@ -30,3 +30,9 @@ void	free_philo_table(t_philo_table *table)
 		current = tmp;
 	}
 }
+void shut_program(t_thread *info, t_philo_table **table)
+{
+	free_philo_table(*table);
+	free(table);
+	free_philo_info(info);
+}
