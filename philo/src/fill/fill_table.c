@@ -2,7 +2,7 @@
 
 int	fill_table(t_philo_table **table, t_thread *philo_info)
 {
-	int i;
+	int				i;
 	t_philo_table	*head;
 	t_philo_table	*current;
 

@@ -3,7 +3,7 @@
 void	free_philo_info(t_thread *thread)
 {
 	if (!thread)
-		return;
+		return ;
 	pthread_mutex_destroy(&thread->lock);
 	free(thread);
 }
@@ -15,7 +15,7 @@ void	free_philo_table(t_philo_table *table)
 	t_philo_table	*tmp;
 
 	if (!table)
-		return;
+		return ;
 	current = table;
 	start = table;
 	while (current->next && current->next != start)
@@ -30,7 +30,8 @@ void	free_philo_table(t_philo_table *table)
 		current = tmp;
 	}
 }
-void shut_program(t_thread *info, t_philo_table **table)
+
+void	shut_program(t_thread *info, t_philo_table **table)
 {
 	free_philo_table(*table);
 	free(table);

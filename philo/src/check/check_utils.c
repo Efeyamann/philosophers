@@ -2,7 +2,9 @@
 
 static int	ft_isdigit(char *s)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!s[i])
 		return (0);
 	if (s[i] == '+')
@@ -16,10 +18,13 @@ static int	ft_isdigit(char *s)
 	return (1);
 }
 
- static long	ft_atol(char *s)
+static long	ft_atol(char *s)
 {
-	long num = 0;
-	int i = 0;
+	long	num;
+	int		i;
+
+	i = 0;
+	num = 0;
 	if (s[i] == '+')
 		i++;
 	while (s[i])
@@ -32,15 +37,15 @@ static int	ft_isdigit(char *s)
 	return (num);
 }
 
-int check_args(int ac, char *av[])
+int	check_args(int ac, char *av[])
 {
-	int	i;
-	long num;
+	int		i;
+	long	num;
 
 	i = 1;
-	while(i < ac)
+	while (i < ac)
 	{
-		if(!ft_isdigit(av[i]))
+		if (!ft_isdigit(av[i]))
 			return (0);
 		num = ft_atol(av[i]);
 		if (num <= 0)

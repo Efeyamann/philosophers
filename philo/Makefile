@@ -5,6 +5,8 @@ OBJDIR = OBJ
 INCDIR = includes
 
 SRCS = $(SRCDIR)/main.c \
+	   $(SRCDIR)/init_program.c \
+	   $(SRCDIR)/run_simulation.c \
        $(SRCDIR)/check/check.c \
        $(SRCDIR)/check/check_utils.c \
        $(SRCDIR)/fill/fill_struct.c \
@@ -13,7 +15,8 @@ SRCS = $(SRCDIR)/main.c \
        $(SRCDIR)/fill/fill_table_utils.c \
        $(SRCDIR)/free/free.c \
        $(SRCDIR)/routine/routine.c \
-       $(SRCDIR)/routine/routine_time_utils.c
+       $(SRCDIR)/routine/routine_time_utils.c \
+	   $(SRCDIR)/routine/monitor.c 
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 

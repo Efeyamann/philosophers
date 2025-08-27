@@ -1,6 +1,6 @@
 #include "../../includes/philosophers.h"
 
-void fill_struct(t_thread *philo_info, int ac, char *av[])
+void	fill_struct(t_thread *philo_info, int ac, char *av[])
 {
 	philo_info->num_philo = ft_atoi(av[1]);
 	philo_info->death_time = ft_atoi(av[2]);

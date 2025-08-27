@@ -53,4 +53,9 @@ void			shut_program(t_thread *info, t_philo_table **table);
 void			*routine(void *arg);
 void			ft_usleep(long ms);
 long			timestamp_ms(void);
+void			*monitor_routine(void *arg);
+long			get_time(t_thread *info);
+int				run_simulation(t_thread *info, t_philo_table **table);
+int				init_program(int ac, char **av, t_thread **philo_info, t_philo_table ***philo_table);
+
 #endif
