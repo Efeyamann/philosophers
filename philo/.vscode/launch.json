@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/heret/Desktop/philosophers/philo/src/free",
-      "program": "/home/heret/Desktop/philosophers/philo/src/free/build/Debug/outDebug",
+      "cwd": "/home/esir/Desktop/philosophers/philo/src",
+      "program": "/home/esir/Desktop/philosophers/philo/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

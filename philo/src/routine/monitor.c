@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esir <esir@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/28 18:48:21 by esir              #+#    #+#             */
+/*   Updated: 2025/08/28 18:48:22 by esir             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/philosophers.h"
 
 int	is_stopped(t_thread *info)
@@ -39,11 +51,28 @@ static int	check_meals(t_philo_data *data)
 	return (0);
 }
 
+static int	check_death(t_philo_table *philo, t_philo_data *data)
+{
+	long	curr_time;
+
+	pthread_mutex_lock(&data->philo_info->lock);
+	curr_time = get_time(data->philo_info);
+	if (!philo->is_eating && (curr_time - philo->meal_time)
+		>= data->philo_info->death_time)
+	{
+		printf("%ld %d died\n", curr_time, philo->philo_num);
+		data->philo_info->stop = 1;
+		pthread_mutex_unlock(&data->philo_info->lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->philo_info->lock);
+	return (0);
+}
+
 void	*monitor_routine(void *arg)
 {
 	t_philo_data	*data;
 	t_philo_table	*current;
-	long			curr_time;
 	int				i;
 
 	data = (t_philo_data *)arg;
@@ -53,16 +82,8 @@ void	*monitor_routine(void *arg)
 		i = 0;
 		while (i < data->philo_info->num_philo)
 		{
-			pthread_mutex_lock(&data->philo_info->lock);
-			curr_time = get_time(data->philo_info);
-			if (!current->is_eating && (curr_time - current->meal_time) >= data->philo_info->death_time)
-			{
-				printf("%ld %d died\n", curr_time, current->philo_num);
-				data->philo_info->stop = 1;
-				pthread_mutex_unlock(&data->philo_info->lock);
+			if (check_death(current, data))
 				return (NULL);
-			}
-			pthread_mutex_unlock(&data->philo_info->lock);
 			current = current->next;
 			i++;
 		}

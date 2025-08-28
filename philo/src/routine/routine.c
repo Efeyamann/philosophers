@@ -1,12 +1,16 @@
-#include "../../includes/philosophers.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esir <esir@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/28 18:48:30 by esir              #+#    #+#             */
+/*   Updated: 2025/08/28 18:48:31 by esir             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	print_status(t_thread *info, int philo_num, char *status)
-{
-	pthread_mutex_lock(&info->lock);
-	if (!info->stop)
-		printf("%ld %d %s\n", get_time(info), philo_num, status);
-	pthread_mutex_unlock(&info->lock);
-}
+#include "../../includes/philosophers.h"
 
 static void	take_forks(t_philo_table *philo, t_thread *info)
 {

@@ -1,14 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine_time_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esir <esir@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/28 18:47:05 by esir              #+#    #+#             */
+/*   Updated: 2025/08/28 18:47:06 by esir             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/philosophers.h"
-
-long	timestamp_ms(void)
-{
-	struct timeval	tv;
-	long			ms;
-
-	gettimeofday(&tv, NULL);
-	ms = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	return (ms);
-}
 
 long	get_time(t_thread *info)
 {
@@ -33,4 +35,12 @@ void	ft_usleep(long time_in_ms, t_thread *info)
 			break ;
 		usleep(500);
 	}
+}
+
+void	print_status(t_thread *info, int philo_num, char *status)
+{
+	pthread_mutex_lock(&info->lock);
+	if (!info->stop)
+		printf("%ld %d %s\n", get_time(info), philo_num, status);
+	pthread_mutex_unlock(&info->lock);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esir <esir@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/28 18:47:48 by esir              #+#    #+#             */
+/*   Updated: 2025/08/28 18:47:49 by esir             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
@@ -51,11 +63,11 @@ t_philo_table	*new_node(void);
 void			shut_program(t_thread *info, t_philo_table **table);
 void			*routine(void *arg);
 void			ft_usleep(long time_in_ms, t_thread *info);
-long			timestamp_ms(void);
 void			*monitor_routine(void *arg);
 long			get_time(t_thread *info);
 int				run_simulation(t_thread *info, t_philo_table **table);
-int				init_program(int ac, char **av, t_thread **philo_info, t_philo_table ***philo_table);
+int				init_program(int ac, char **av, t_thread **philo_info,
+					t_philo_table ***philo_table);
 void			print_status(t_thread *info, int philo_num, char *status);
 int				is_stopped(t_thread *info);
 
