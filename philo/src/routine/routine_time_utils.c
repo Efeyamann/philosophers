@@ -24,13 +24,13 @@ long	get_time(t_thread *info)
 
 void	ft_usleep(long time_in_ms, t_thread *info)
 {
-    long	start_time;
+	long	start_time;
 
-    start_time = get_time(info);
-    while ((get_time(info) - start_time) < time_in_ms)
-    {
-        if (is_stopped(info))
-            break ;
-        usleep(500);
-    }
+	start_time = get_time(info);
+	while ((get_time(info) - start_time) < time_in_ms)
+	{
+		if (is_stopped(info))
+			break ;
+		usleep(500);
+	}
 }

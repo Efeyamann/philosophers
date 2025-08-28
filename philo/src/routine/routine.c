@@ -2,10 +2,10 @@
 
 void	print_status(t_thread *info, int philo_num, char *status)
 {
-    pthread_mutex_lock(&info->lock);
-    if (!info->stop)
-        printf("%ld %d %s\n", get_time(info), philo_num, status);
-    pthread_mutex_unlock(&info->lock);
+	pthread_mutex_lock(&info->lock);
+	if (!info->stop)
+		printf("%ld %d %s\n", get_time(info), philo_num, status);
+	pthread_mutex_unlock(&info->lock);
 }
 
 static void	take_forks(t_philo_table *philo, t_thread *info)
@@ -66,29 +66,29 @@ static void	philo_cycle(t_philo_table *philo, t_thread *info)
 
 void	*routine(void *arg)
 {
-    t_philo_data	*data;
-    t_philo_table	*philo;
-    t_thread		*info;
+	t_philo_data	*data;
+	t_philo_table	*philo;
+	t_thread		*info;
 
-    data = (t_philo_data *)arg;
-    philo = data->philo;
-    info = data->philo_info;
-    pthread_mutex_lock(&info->lock);
-    philo->meal_time = get_time(info);
-    pthread_mutex_unlock(&info->lock);
-    if (info->num_philo == 1)
-    {
-        print_status(info, philo->philo_num, "has taken a fork");
-        ft_usleep(info->death_time, info);
-        return (NULL);
-    }
+	data = (t_philo_data *)arg;
+	philo = data->philo;
+	info = data->philo_info;
+	pthread_mutex_lock(&info->lock);
+	philo->meal_time = get_time(info);
+	pthread_mutex_unlock(&info->lock);
+	if (info->num_philo == 1)
+	{
+		print_status(info, philo->philo_num, "has taken a fork");
+		ft_usleep(info->death_time, info);
+		return (NULL);
+	}
 	if (philo->philo_num % 2 == 0)
 		ft_usleep(info->eat_time / 2, info);
-    while (!is_stopped(info))
-    {
+	while (!is_stopped(info))
+	{
 		philo_cycle(philo, info);
 		if (info->num_philo % 2 != 0)
 			ft_usleep(info->eat_time / 2, info);
-    }
-    return (NULL);
+	}
+	return (NULL);
 }

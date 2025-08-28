@@ -11,12 +11,12 @@
 
 typedef struct s_philo_table
 {
-    int						philo_num;
-    long					meal_time;
-    int						total_meal;
-    int						is_eating;
-    pthread_mutex_t			fork;
-    struct s_philo_table	*next;
+	int						philo_num;
+	long					meal_time;
+	int						total_meal;
+	int						is_eating;
+	pthread_mutex_t			fork;
+	struct s_philo_table	*next;
 }							t_philo_table;
 
 typedef struct s_thread
