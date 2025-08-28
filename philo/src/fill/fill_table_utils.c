@@ -11,6 +11,7 @@ t_philo_table	*new_node(void)
 	node->philo_num = 0;
 	node->meal_time = 0;
 	node->total_meal = 0;
+	node->is_eating = 0;
 	node->next = NULL;
 	return (node);
 }
