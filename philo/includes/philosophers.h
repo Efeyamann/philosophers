@@ -9,6 +9,16 @@
 # include <sys/time.h>
 # include <limits.h>
 
+typedef struct s_philo_table
+{
+    int						philo_num;
+    long					meal_time;
+    int						total_meal;
+    int						is_eating;
+    pthread_mutex_t			fork;
+    struct s_philo_table	*next;
+}							t_philo_table;
+
 typedef struct s_thread
 {
 	pthread_mutex_t	lock;
@@ -23,17 +33,6 @@ typedef struct s_thread
 	int				stop;
 	int				return_val;
 }	t_thread;
-
-typedef struct s_philo_table
-{
-	int						philo_num;
-	int						meal_time;
-	int						total_meal;
-	struct timeval			thinking_start;
-	struct timeval			thinking_end;
-	pthread_mutex_t			fork;
-	struct s_philo_table	*next;
-}	t_philo_table;
 
 typedef struct s_philo_data
 {
@@ -51,11 +50,13 @@ void			free_philo_info(t_thread *thread);
 t_philo_table	*new_node(void);
 void			shut_program(t_thread *info, t_philo_table **table);
 void			*routine(void *arg);
-void			ft_usleep(long ms);
+void			ft_usleep(long time_in_ms, t_thread *info);
 long			timestamp_ms(void);
 void			*monitor_routine(void *arg);
 long			get_time(t_thread *info);
 int				run_simulation(t_thread *info, t_philo_table **table);
 int				init_program(int ac, char **av, t_thread **philo_info, t_philo_table ***philo_table);
+void			print_status(t_thread *info, int philo_num, char *status);
+int				is_stopped(t_thread *info);
 
 #endif

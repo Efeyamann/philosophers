@@ -1,29 +1,43 @@
 #include "../../includes/philosophers.h"
 
+void	print_status(t_thread *info, int philo_num, char *status)
+{
+    pthread_mutex_lock(&info->lock);
+    if (!info->stop)
+        printf("%ld %d %s\n", get_time(info), philo_num, status);
+    pthread_mutex_unlock(&info->lock);
+}
+
 static void	take_forks(t_philo_table *philo, t_thread *info)
 {
 	if (philo->philo_num % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->fork);
-		printf("%ld %d has taken a fork\n", get_time(info), philo->philo_num);
+		print_status(info, philo->philo_num, "has taken a fork");
 		pthread_mutex_lock(&philo->next->fork);
-		printf("%ld %d has taken a fork\n", get_time(info), philo->philo_num);
+		print_status(info, philo->philo_num, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->next->fork);
-		printf("%ld %d has taken a fork\n", get_time(info), philo->philo_num);
+		print_status(info, philo->philo_num, "has taken a fork");
 		pthread_mutex_lock(&philo->fork);
-		printf("%ld %d has taken a fork\n", get_time(info), philo->philo_num);
+		print_status(info, philo->philo_num, "has taken a fork");
 	}
 }
 
 static void	eat(t_philo_table *philo, t_thread *info)
 {
-	printf("%ld %d is eating\n", get_time(info), philo->philo_num);
+	pthread_mutex_lock(&info->lock);
+	philo->is_eating = 1;
 	philo->meal_time = get_time(info);
-	ft_usleep(info->eat_time);
 	philo->total_meal++;
+	pthread_mutex_unlock(&info->lock);
+	print_status(info, philo->philo_num, "is eating");
+	ft_usleep(info->eat_time, info);
+	pthread_mutex_lock(&info->lock);
+	philo->is_eating = 0;
+	pthread_mutex_unlock(&info->lock);
 }
 
 static void	release_forks(t_philo_table *philo)
@@ -42,27 +56,39 @@ static void	release_forks(t_philo_table *philo)
 
 static void	philo_cycle(t_philo_table *philo, t_thread *info)
 {
+	print_status(info, philo->philo_num, "is thinking");
 	take_forks(philo, info);
 	eat(philo, info);
 	release_forks(philo);
-	printf("%ld %d is sleeping\n", get_time(info), philo->philo_num);
-	ft_usleep(info->sleep_time);
+	print_status(info, philo->philo_num, "is sleeping");
+	ft_usleep(info->sleep_time, info);
 }
 
 void	*routine(void *arg)
 {
-	t_philo_data	*data;
-	t_philo_table	*philo;
-	t_thread		*info;
+    t_philo_data	*data;
+    t_philo_table	*philo;
+    t_thread		*info;
 
-	data = (t_philo_data *)arg;
-	philo = data->philo;
-	info = data->philo_info;
-	philo->meal_time = get_time(info);
-	while (!info->stop)
-	{
-		printf("%ld %d is thinking\n", get_time(info), philo->philo_num);
+    data = (t_philo_data *)arg;
+    philo = data->philo;
+    info = data->philo_info;
+    pthread_mutex_lock(&info->lock);
+    philo->meal_time = get_time(info);
+    pthread_mutex_unlock(&info->lock);
+    if (info->num_philo == 1)
+    {
+        print_status(info, philo->philo_num, "has taken a fork");
+        ft_usleep(info->death_time, info);
+        return (NULL);
+    }
+	if (philo->philo_num % 2 == 0)
+		ft_usleep(info->eat_time / 2, info);
+    while (!is_stopped(info))
+    {
 		philo_cycle(philo, info);
-	}
-	return (NULL);
+		if (info->num_philo % 2 != 0)
+			ft_usleep(info->eat_time / 2, info);
+    }
+    return (NULL);
 }

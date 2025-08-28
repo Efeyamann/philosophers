@@ -43,7 +43,9 @@ int	run_simulation(t_thread *info, t_philo_table **table)
 		return (free(threads), free(data), 1);
 	pthread_create(&monitor_thread, NULL, monitor_routine, &data[0]);
 	pthread_join(monitor_thread, NULL);
+	pthread_mutex_lock(&info->lock);
 	info->stop = 1;
+	pthread_mutex_unlock(&info->lock);
 	join_threads(info, threads);
 	free(threads);
 	free(data);

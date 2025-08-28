@@ -22,11 +22,15 @@ long	get_time(t_thread *info)
 	return (current_ms - start_ms);
 }
 
-void	ft_usleep(long ms)
+void	ft_usleep(long time_in_ms, t_thread *info)
 {
-	long	start;
+    long	start_time;
 
-	start = timestamp_ms();
-	while ((timestamp_ms() - start) < ms)
-		usleep(100);
+    start_time = get_time(info);
+    while ((get_time(info) - start_time) < time_in_ms)
+    {
+        if (is_stopped(info))
+            break ;
+        usleep(500);
+    }
 }
